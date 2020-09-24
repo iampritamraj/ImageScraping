@@ -1,21 +1,9 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Thu Sep 26 16:37:38 2019
-
-@author: Pritam
-please share your experience and error with me on github.
-github.com/pritam-raj
-
-"""
-
-# important library for scraping
-# if library not exists try pip3 install "library name"
-
 from bs4 import BeautifulSoup
 import requests
 from PIL import Image
 from io import BytesIO
 import os
+import urllib.request
 
 def startsearch():
     search = input('write image name for scraping:')
@@ -39,8 +27,8 @@ def startsearch():
             print("getting links", item.attrs['href'])
             title = item.attrs['href'].split("/")[-1]
             try:
-                img = Image.open(BytesIO(image_object.content))
-                img.save("./" + dir_name + "/" + title, img.format)#help from google
+                urllib.request.urlretrieve(item.attrs['href'], dir_name+title)
+                print("image saved")
             except:
                 print("could not save image.")
         except:
